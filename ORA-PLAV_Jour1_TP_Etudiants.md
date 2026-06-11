@@ -1,20 +1,20 @@
-# Oracle PL/SQL Avance — ORA-PLAV
-## Guide de travaux pratiques — Jour 1
+# Oracle PL/SQL Avance: ORA-PLAV
+## Guide de travaux pratiques: Jour 1
 
-> **Formation** : ORA-PLAV — Oracle PL/SQL Avance
+> **Formation** : ORA-PLAV: Oracle PL/SQL Avance
 > **Niveau** : Developpeurs PL/SQL en activite
 > **Environnement** : Oracle 21c XE · SQL Developer 24.x
 > **Schema de travail** : SCOTT (tables `EMP` et `DEPT`)
 
 ---
 
-## Avant de commencer — Configuration SQL Developer
+## Avant de commencer: Configuration SQL Developer
 
 Avant d'executer le moindre bloc PL/SQL, effectuez ces deux verifications.
 
 ### Activer l'affichage des resultats
 
-**Option A — Methode recommandee (la plus simple)**
+**Option A: Methode recommandee (la plus simple)**
 
 Ajoutez toujours cette ligne en tete de votre feuille de travail :
 
@@ -24,7 +24,7 @@ SET SERVEROUTPUT ON SIZE UNLIMITED
 
 Executez ensuite votre code avec **F5** (pas F9). Les resultats apparaissent dans le panneau **Script Output** en bas.
 
-**Option B — Panneau DBMS Output graphique**
+**Option B: Panneau DBMS Output graphique**
 
 1. Menu **View** → **Dbms Output**
 2. Dans le panneau qui s'ouvre, cliquer sur le **+** vert
@@ -62,7 +62,7 @@ Si vous voyez ce message, vous etes pret.
 3. [%TYPE et %ROWTYPE](#3--type-et-rowtype)
 4. [RECORD](#4--record)
 5. [Collections](#5--collections)
-6. [Large Objects — CLOB et BLOB](#6--large-objects--clob-et-blob)
+6. [Large Objects: CLOB et BLOB](#6--large-objects--clob-et-blob)
 7. [Curseurs et REF CURSOR](#7--curseurs-et-ref-cursor)
 8. [BULK COLLECT et FORALL](#8--bulk-collect-et-forall)
 9. [Gestion des erreurs](#9--gestion-des-erreurs)
@@ -100,7 +100,7 @@ Mon premier bloc PL/SQL
 ```
 
 **Ce qu'il faut retenir :**
-- Le `/` final est indispensable — il dit a SQL Developer d'executer le bloc
+- Le `/` final est indispensable: il dit a SQL Developer d'executer le bloc
 - Sans `SET SERVEROUTPUT ON`, rien ne s'affiche
 - Executez toujours avec **F5**, pas **F9**
 
@@ -142,7 +142,7 @@ Nouveau nom : Oracle 21c XE
 
 ---
 
-### Exemple 1-C : La section EXCEPTION — intercepter une erreur
+### Exemple 1-C : La section EXCEPTION: intercepter une erreur
 
 Executez d'abord ce bloc **sans** EXCEPTION pour voir ce qui se passe :
 
@@ -198,7 +198,7 @@ Msg   : ORA-01476: diviseur egal a zero
 
 ---
 
-### Exemple 1-D : Blocs imbriques — isoler les erreurs
+### Exemple 1-D : Blocs imbriques: isoler les erreurs
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -240,7 +240,7 @@ Salaire utilise : 0
 
 ## 2 · Types de donnees avances
 
-### Exemple 2-A : DATE vs TIMESTAMP — voir la difference
+### Exemple 2-A : DATE vs TIMESTAMP: voir la difference
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -271,7 +271,7 @@ TIMESTAMP : 11/06/2025 14:32:07.412893
 
 ---
 
-### Exemple 2-B : TIMESTAMP — mesurer la duree d'un traitement
+### Exemple 2-B : TIMESTAMP: mesurer la duree d'un traitement
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -314,7 +314,7 @@ Sec    : 0.435
 
 ---
 
-### Exemple 2-C : INTERVAL — calculer des delais
+### Exemple 2-C : INTERVAL: calculer des delais
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -394,13 +394,13 @@ END;
 ```
 
 **Ce qu'il faut retenir :**
-- `BOOLEAN` n'existe qu'en PL/SQL — il n'existe pas en SQL Oracle
+- `BOOLEAN` n'existe qu'en PL/SQL: il n'existe pas en SQL Oracle
 - Pour stocker un booleen en table : utiliser `CHAR(1)` (`'O'`/`'N'`) ou `NUMBER(1)` (1/0)
 - Un `BOOLEAN` non initialise vaut `NULL` (pas FALSE)
 
 ---
 
-### Exemple 2-E : PLS_INTEGER — le type pour les compteurs
+### Exemple 2-E : PLS_INTEGER: le type pour les compteurs
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -482,7 +482,7 @@ END;
 
 ---
 
-### Exemple 3-B : %ROWTYPE — charger toute une ligne
+### Exemple 3-B : %ROWTYPE: charger toute une ligne
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -508,11 +508,11 @@ END;
 **Ce qu'il faut retenir :**
 - `emp%ROWTYPE` cree une variable avec les memes champs que la table EMP
 - Acces aux champs avec la notation pointee : `r_emp.ename`, `r_emp.sal`, etc.
-- Si la table a 50 colonnes, le `%ROWTYPE` charge 50 champs — preferer un `RECORD` si vous n'en avez besoin que de quelques-uns
+- Si la table a 50 colonnes, le `%ROWTYPE` charge 50 champs: preferer un `RECORD` si vous n'en avez besoin que de quelques-uns
 
 ---
 
-### Exemple 3-C : %ROWTYPE sur un curseur — plus leger
+### Exemple 3-C : %ROWTYPE sur un curseur: plus leger
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -588,7 +588,7 @@ END;
 
 ---
 
-### Exemple 4-B : RECORD avec %TYPE — combinaison ideale
+### Exemple 4-B : RECORD avec %TYPE: combinaison ideale
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -626,7 +626,7 @@ END;
 ```
 
 **Ce qu'il faut retenir :**
-- Un `RECORD` peut combiner des colonnes de **plusieurs tables** — ce que `%ROWTYPE` ne peut pas faire
+- Un `RECORD` peut combiner des colonnes de **plusieurs tables**: ce que `%ROWTYPE` ne peut pas faire
 - Toujours ancrer les champs avec `%TYPE` pour la robustesse
 - En production : declarer les types `RECORD` dans un package partage (`pkg_types`) pour les reutiliser
 
@@ -673,7 +673,7 @@ END;
 
 **Ce qu'il faut retenir :**
 - Passer un `RECORD` en parametre remplace une liste de 4 ou 5 parametres individuels
-- Si on ajoute un champ au `RECORD`, on ne modifie que sa declaration — pas toutes les signatures de procedures
+- Si on ajoute un champ au `RECORD`, on ne modifie que sa declaration: pas toutes les signatures de procedures
 
 ---
 
@@ -689,7 +689,7 @@ PL/SQL propose trois types de collections. Chacun a son cas d'usage precis.
 
 ---
 
-### Exemple 5-A : Nested Table — operations de base
+### Exemple 5-A : Nested Table: operations de base
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -756,7 +756,7 @@ END;
 
 ---
 
-### Exemple 5-C : VARRAY — liste ordonnee a taille fixe
+### Exemple 5-C : VARRAY: liste ordonnee a taille fixe
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -782,7 +782,7 @@ END;
 
 ---
 
-### Exemple 5-D : Associative Array — cache de lookup
+### Exemple 5-D : Associative Array: cache de lookup
 
 C'est le cas d'usage le plus important en production : eviter des SELECT repetes sur une table de reference.
 
@@ -834,7 +834,7 @@ END;
 
 **Ce qu'il faut retenir :**
 - L'Associative Array `INDEX BY PLS_INTEGER` fonctionne comme un dictionnaire en memoire
-- Le lookup est tres rapide (O log n) — aucun acces disque
+- Le lookup est tres rapide (O log n): aucun acces disque
 - Sur des millions de lignes, cette difference est determinante
 
 ---
@@ -881,7 +881,7 @@ END;
 
 ---
 
-## 6 · Large Objects — CLOB et BLOB
+## 6 · Large Objects: CLOB et BLOB
 
 Les LOBs servent a stocker de grandes quantites de donnees : textes longs (CLOB), fichiers binaires (BLOB). Toute manipulation passe par le package `DBMS_LOB`.
 
@@ -915,7 +915,7 @@ BEGIN
   DBMS_OUTPUT.PUT_LINE('Contenu (debut) :');
   DBMS_OUTPUT.PUT_LINE(DBMS_LOB.SUBSTR(v_clob, 200, 1));
 
-  -- Etape 4 : OBLIGATOIRE — liberer la memoire
+  -- Etape 4 : OBLIGATOIRE: liberer la memoire
   DBMS_LOB.FREETEMPORARY(v_clob);
   DBMS_OUTPUT.PUT_LINE('LOB libere.');
 END;
@@ -970,7 +970,7 @@ END;
 
 ---
 
-### Exemple 6-C : FREETEMPORARY dans EXCEPTION — la regle absolue
+### Exemple 6-C : FREETEMPORARY dans EXCEPTION: la regle absolue
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -1027,24 +1027,24 @@ END;
 
 ## 7 · Curseurs et REF CURSOR
 
-### Exemple 7-A : Cycle de vie — DECLARE / OPEN / FETCH / CLOSE
+### Exemple 7-A : Cycle de vie: DECLARE / OPEN / FETCH / CLOSE
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
 
 DECLARE
-  -- Etape 1 : DECLARE — definit la requete (non encore executee)
+  -- Etape 1 : DECLARE: definit la requete (non encore executee)
   CURSOR c_emp10 IS
     SELECT empno, ename, sal FROM emp WHERE deptno = 10 ORDER BY sal DESC;
 
   r c_emp10%ROWTYPE;
 
 BEGIN
-  -- Etape 2 : OPEN — execute la requete
+  -- Etape 2 : OPEN: execute la requete
   OPEN c_emp10;
   DBMS_OUTPUT.PUT_LINE('Curseur ouvert : ' || CASE WHEN c_emp10%ISOPEN THEN 'OUI' ELSE 'NON' END);
 
-  -- Etape 3 : FETCH — lire ligne par ligne
+  -- Etape 3 : FETCH: lire ligne par ligne
   LOOP
     FETCH c_emp10 INTO r;
     EXIT WHEN c_emp10%NOTFOUND;
@@ -1055,7 +1055,7 @@ BEGIN
 
   DBMS_OUTPUT.PUT_LINE('Total lu : ' || c_emp10%ROWCOUNT);
 
-  -- Etape 4 : CLOSE — liberer les ressources
+  -- Etape 4 : CLOSE: liberer les ressources
   CLOSE c_emp10;
 
 EXCEPTION
@@ -1142,7 +1142,7 @@ END;
 
 ---
 
-### Exemple 7-D : REF CURSOR — retourner un jeu de resultats
+### Exemple 7-D : REF CURSOR: retourner un jeu de resultats
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -1197,11 +1197,11 @@ END;
 
 ### Pourquoi BULK COLLECT ?
 
-Chaque `FETCH` individuel provoque un **context switch** entre le moteur PL/SQL et le moteur SQL. Sur 100 000 lignes, c'est 100 000 allers-retours. `BULK COLLECT` regroupe ces allers-retours en lots — gain typique : **10x a 50x**.
+Chaque `FETCH` individuel provoque un **context switch** entre le moteur PL/SQL et le moteur SQL. Sur 100 000 lignes, c'est 100 000 allers-retours. `BULK COLLECT` regroupe ces allers-retours en lots: gain typique : **10x a 50x**.
 
 ---
 
-### Exemple 8-A : BULK COLLECT avec LIMIT — le pattern de base
+### Exemple 8-A : BULK COLLECT avec LIMIT: le pattern de base
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -1239,13 +1239,13 @@ END;
 ```
 
 **Ce qu'il faut retenir :**
-- `LIMIT n` est **obligatoire** — sans lui, toute la table est chargee en memoire d'un coup
+- `LIMIT n` est **obligatoire**: sans lui, toute la table est chargee en memoire d'un coup
 - `v_emps.DELETE` entre les lots libere la PGA
 - En production : `LIMIT 500` est un bon point de depart
 
 ---
 
-### Exemple 8-B : FORALL — DML en masse
+### Exemple 8-B : FORALL: DML en masse
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -1282,7 +1282,7 @@ DROP TABLE ti_sal_test;
 
 ---
 
-### Exemple 8-C : FORALL INDICES OF — gerer les trous
+### Exemple 8-C : FORALL INDICES OF: gerer les trous
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -1320,7 +1320,7 @@ DROP TABLE ti_test;
 
 ---
 
-### Exemple 8-D : FORALL SAVE EXCEPTIONS — continuer malgre les erreurs
+### Exemple 8-D : FORALL SAVE EXCEPTIONS: continuer malgre les erreurs
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -1389,7 +1389,7 @@ DROP TABLE ti_clients;
 
 ## 9 · Gestion des erreurs
 
-### Exemple 9-A : Exceptions predefinies — les plus courantes
+### Exemple 9-A : Exceptions predefinies: les plus courantes
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -1439,7 +1439,7 @@ END;
 
 ---
 
-### Exemple 9-B : WHEN OTHERS — bon et mauvais usage
+### Exemple 9-B : WHEN OTHERS: bon et mauvais usage
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -1489,12 +1489,12 @@ DROP TABLE ti_err_log;
 ```
 
 **Regle absolue :**
-- `WHEN OTHERS THEN NULL` est **interdit en production** — il cache les bugs
+- `WHEN OTHERS THEN NULL` est **interdit en production**: il cache les bugs
 - Dans `WHEN OTHERS` : toujours logguer `SQLCODE` + `SQLERRM`, puis `RAISE`
 
 ---
 
-### Exemple 9-C : PRAGMA EXCEPTION_INIT — nommer les erreurs Oracle
+### Exemple 9-C : PRAGMA EXCEPTION_INIT: nommer les erreurs Oracle
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -1531,7 +1531,7 @@ END;
 
 ---
 
-### Exemple 9-D : RAISE_APPLICATION_ERROR — erreurs metier
+### Exemple 9-D : RAISE_APPLICATION_ERROR: erreurs metier
 
 ```sql
 SET SERVEROUTPUT ON SIZE UNLIMITED
@@ -1648,4 +1648,4 @@ FORALL i IN 1..v_col.COUNT SAVE EXCEPTIONS
 
 ---
 
-*Fin du guide de travaux pratiques — Jour 1 ORA-PLAV*
+*Fin du guide de travaux pratiques: Jour 1 ORA-PLAV*
