@@ -1,8 +1,8 @@
-# ORA-PLAV — Oracle PL/SQL Avancé
-## Support de Travaux Pratiques — Jour 1
+# ORA-PLAV: Oracle PL/SQL Avancé
+## Support de Travaux Pratiques: Jour 1
 ### Schéma : TechInfo Solutions S.A.S
 
-**Formation** : ORA-PLAV — Oracle PL/SQL Avancé
+**Formation** : ORA-PLAV: Oracle PL/SQL Avancé
 **Durée** : Jour 1 / 7 heures
 **Environnement** : Oracle 21c XE · SQL Developer 24.x
 
@@ -35,24 +35,24 @@ Sous SQL Developer : `View` → `DBMS Output` → `+` (vert)
 
 ---
 
-## CONCEPT 1 — Structure d'un bloc PL/SQL
+## CONCEPT 1: Structure d'un bloc PL/SQL
 
 > Maîtriser les 3 sections, isoler les erreurs avec des blocs imbriqués.
 
 ---
 
-### 1-A — Bloc minimal
+### 1-A: Bloc minimal
 
 ```sql
 BEGIN
-  DBMS_OUTPUT.PUT_LINE('TechInfo Solutions — PL/SQL Avancé');
+  DBMS_OUTPUT.PUT_LINE('TechInfo Solutions: PL/SQL Avancé');
 END;
 /
 ```
 
 ---
 
-### 1-B — Déclarer et utiliser des variables
+### 1-B: Déclarer et utiliser des variables
 
 ```sql
 DECLARE
@@ -67,7 +67,7 @@ BEGIN
     FROM ti_employes
    WHERE actif = 'O';
 
-  v_message := v_societe || ' — ' || v_nb_emp || ' employé(s) actif(s) au '
+  v_message := v_societe || ': ' || v_nb_emp || ' employé(s) actif(s) au '
                || TO_CHAR(v_date_ex, 'DD/MM/YYYY');
 
   DBMS_OUTPUT.PUT_LINE(v_message);
@@ -78,14 +78,14 @@ END;
 
 **Points clés :**
 - `:=` pour l'affectation (pas `=` comme en SQL)
-- `||` pour la concaténation — toute opération avec `NULL` retourne `NULL`
+- `||` pour la concaténation: toute opération avec `NULL` retourne `NULL`
 
 ---
 
-### 1-C — La section EXCEPTION
+### 1-C: La section EXCEPTION
 
 ```sql
--- Étape 1 : SANS EXCEPTION — observer l'arrêt du programme
+-- Étape 1 : SANS EXCEPTION: observer l'arrêt du programme
 BEGIN
   DBMS_OUTPUT.PUT_LINE('Recherche en cours...');
   DECLARE v_nom ti_employes.nom%TYPE;
@@ -99,7 +99,7 @@ END;
 ```
 
 ```sql
--- Étape 2 : AVEC EXCEPTION — récupération propre
+-- Étape 2 : AVEC EXCEPTION: récupération propre
 DECLARE
   v_nom   ti_employes.nom%TYPE;
   v_found BOOLEAN := FALSE;
@@ -125,7 +125,7 @@ END;
 
 ---
 
-### 1-D — Blocs imbriqués : isoler les erreurs par étape
+### 1-D: Blocs imbriqués : isoler les erreurs par étape
 
 ```sql
 DECLARE
@@ -164,7 +164,7 @@ END;
 Écrivez un bloc qui :
 - Déclare `v_dept_id NUMBER := 10`
 - Récupère le `nom` et la `localite` de ce département dans `TI_DEPARTEMENTS`
-- Affiche : `"Département : IT — Paris"`
+- Affiche : `"Département : IT: Paris"`
 - Dans `EXCEPTION WHEN NO_DATA_FOUND` : affiche un message clair
 
 ```sql
@@ -175,7 +175,7 @@ DECLARE
   v_localite ti_departements.localite%TYPE;
 BEGIN
   -- ?
-  DBMS_OUTPUT.PUT_LINE('Département : ' || v_nom || ' — ' || NVL(v_localite, 'N/A'));
+  DBMS_OUTPUT.PUT_LINE('Département : ' || v_nom || ': ' || NVL(v_localite, 'N/A'));
 EXCEPTION
   -- ?
 END;
@@ -184,13 +184,13 @@ END;
 
 ---
 
-## CONCEPT 2 — Types de données avancés
+## CONCEPT 2: Types de données avancés
 
 > TIMESTAMP pour les horodatages précis, INTERVAL pour les durées, BOOLEAN pour la logique, PLS_INTEGER pour les compteurs rapides.
 
 ---
 
-### 2-A — DATE vs TIMESTAMP sur TI_EMPLOYES
+### 2-A: DATE vs TIMESTAMP sur TI_EMPLOYES
 
 ```sql
 DECLARE
@@ -218,7 +218,7 @@ pour éviter les collisions sur des événements rapprochés. Toujours utiliser
 
 ---
 
-### 2-B — TIMESTAMP — chronométrer un traitement
+### 2-B: TIMESTAMP: chronométrer un traitement
 
 ```sql
 DECLARE
@@ -248,7 +248,7 @@ END;
 
 ---
 
-### 2-C — INTERVAL — délais sur TI_COMMANDES
+### 2-C: INTERVAL: délais sur TI_COMMANDES
 
 ```sql
 DECLARE
@@ -283,7 +283,7 @@ END;
 
 ---
 
-### 2-D — BOOLEAN — règles métier sur TI_EMPLOYES
+### 2-D: BOOLEAN: règles métier sur TI_EMPLOYES
 
 ```sql
 DECLARE
@@ -310,7 +310,7 @@ END;
 
 ---
 
-### 2-E — PLS_INTEGER — compteurs sur grands volumes
+### 2-E: PLS_INTEGER: compteurs sur grands volumes
 
 ```sql
 DECLARE
@@ -363,13 +363,13 @@ END;
 
 ---
 
-## CONCEPT 3 — %TYPE et %ROWTYPE
+## CONCEPT 3: %TYPE et %ROWTYPE
 
 > Ancrer les variables sur le schéma pour un code robuste aux évolutions DDL.
 
 ---
 
-### 3-A — Le problème sans %TYPE
+### 3-A: Le problème sans %TYPE
 
 ```sql
 -- Fragile : si ti_employes.nom passe de VARCHAR2(50) à VARCHAR2(100)
@@ -393,7 +393,7 @@ END;
 
 ---
 
-### 3-B — %TYPE sur une fiche employé complète
+### 3-B: %TYPE sur une fiche employé complète
 
 ```sql
 DECLARE
@@ -421,7 +421,7 @@ END;
 
 ---
 
-### 3-C — %ROWTYPE sur TI_EMPLOYES et TI_DEPARTEMENTS
+### 3-C: %ROWTYPE sur TI_EMPLOYES et TI_DEPARTEMENTS
 
 ```sql
 DECLARE
@@ -445,7 +445,7 @@ END;
 
 ---
 
-### 3-D — %ROWTYPE sur curseur — plus économique
+### 3-D: %ROWTYPE sur curseur: plus économique
 
 ```sql
 DECLARE
@@ -465,7 +465,7 @@ BEGIN
     EXIT WHEN c%NOTFOUND;
     DBMS_OUTPUT.PUT_LINE(
       RPAD(r.nom || ' ' || r.prenom, 25) ||
-      LPAD(r.salaire, 10) || ' EUR  — ' || r.dept_nom
+      LPAD(r.salaire, 10) || ' EUR : ' || r.dept_nom
     );
   END LOOP;
   CLOSE c;
@@ -498,13 +498,13 @@ END;
 
 ---
 
-## CONCEPT 4 — RECORD
+## CONCEPT 4: RECORD
 
 > Créer des structures sur mesure combinant des colonnes de plusieurs tables.
 
 ---
 
-### 4-A — RECORD simple
+### 4-A: RECORD simple
 
 ```sql
 DECLARE
@@ -532,7 +532,7 @@ END;
 
 ---
 
-### 4-B — RECORD avec %TYPE — fiche employé enrichie
+### 4-B: RECORD avec %TYPE: fiche employé enrichie
 
 ```sql
 DECLARE
@@ -573,7 +573,7 @@ END;
 
 ---
 
-### 4-C — RECORD comme paramètre de procédure
+### 4-C: RECORD comme paramètre de procédure
 
 ```sql
 DECLARE
@@ -614,7 +614,7 @@ END;
 
 ---
 
-### 4-D — RECORD dans une collection — stats par département
+### 4-D: RECORD dans une collection: stats par département
 
 ```sql
 DECLARE
@@ -704,13 +704,13 @@ END;
 
 ---
 
-## CONCEPT 5 — Collections PL/SQL
+## CONCEPT 5: Collections PL/SQL
 
 > Nested TABLE pour les listes dynamiques, VARRAY pour les listes fixes, Associative Array pour les caches.
 
 ---
 
-### 5-A — Nested TABLE — produits en alerte de stock
+### 5-A: Nested TABLE: produits en alerte de stock
 
 ```sql
 DECLARE
@@ -733,7 +733,7 @@ BEGIN
     v_stks.EXTEND; v_stks(v_idx) := r.stock;
   END LOOP;
 
-  DBMS_OUTPUT.PUT_LINE('=== Alerte stock — ' || v_idx || ' produit(s) ===');
+  DBMS_OUTPUT.PUT_LINE('=== Alerte stock: ' || v_idx || ' produit(s) ===');
   FOR i IN v_refs.FIRST..v_refs.LAST LOOP
     DBMS_OUTPUT.PUT_LINE(RPAD(v_refs(i), 15) || RPAD(v_libs(i), 30) || ' Stock: ' || v_stks(i));
   END LOOP;
@@ -745,7 +745,7 @@ END;
 
 ---
 
-### 5-B — Méthodes DELETE et parcours FIRST/NEXT
+### 5-B: Méthodes DELETE et parcours FIRST/NEXT
 
 ```sql
 DECLARE
@@ -782,7 +782,7 @@ END;
 
 ---
 
-### 5-C — VARRAY — workflow des statuts de commande
+### 5-C: VARRAY: workflow des statuts de commande
 
 ```sql
 DECLARE
@@ -805,7 +805,7 @@ END;
 
 ---
 
-### 5-D — Associative Array — cache du référentiel catégories et prix
+### 5-D: Associative Array: cache du référentiel catégories et prix
 
 ```sql
 DECLARE
@@ -832,7 +832,7 @@ BEGIN
       DBMS_OUTPUT.PUT_LINE(
         RPAD(r.reference, 15) ||
         RPAD(r.libelle,   30) ||
-        LPAD(v_prix(r.produit_id), 8) || ' EUR  — ' || v_cats(r.cat_id)
+        LPAD(v_prix(r.produit_id), 8) || ' EUR : ' || v_cats(r.cat_id)
       );
     END IF;
   END LOOP;
@@ -842,7 +842,7 @@ END;
 
 ---
 
-### 5-E — Associative Array clé VARCHAR2 — libellés de statuts
+### 5-E: Associative Array clé VARCHAR2: libellés de statuts
 
 ```sql
 DECLARE
@@ -851,14 +851,14 @@ DECLARE
 BEGIN
   v_lib('NOUVEAU')   := 'Enregistrée, en attente de traitement';
   v_lib('EN_COURS')  := 'En cours de préparation';
-  v_lib('EXPEDIE')   := 'Expédiée — suivi disponible';
+  v_lib('EXPEDIE')   := 'Expédiée: suivi disponible';
   v_lib('LIVRE')     := 'Livrée et confirmée';
   v_lib('ANNULE')    := 'Annulée';
 
   FOR r IN (SELECT numero, statut, montant_ttc FROM ti_commandes ORDER BY date_cmd) LOOP
     IF v_lib.EXISTS(r.statut) THEN
       DBMS_OUTPUT.PUT_LINE(
-        RPAD(r.numero, 15) || LPAD(r.montant_ttc, 10) || ' EUR  — ' || v_lib(r.statut)
+        RPAD(r.numero, 15) || LPAD(r.montant_ttc, 10) || ' EUR : ' || v_lib(r.statut)
       );
     END IF;
   END LOOP;
@@ -917,14 +917,14 @@ END;
 
 ---
 
-## CONCEPT 6 — Large Objects (LOBs)
+## CONCEPT 6: Large Objects (LOBs)
 
 > CREATETEMPORARY → WRITEAPPEND → READ (par chunks) → FREETEMPORARY.
 > FREETEMPORARY est **obligatoire** dans le flux normal **et** dans EXCEPTION.
 
 ---
 
-### 6-A — Écrire une fiche technique dans TI_PRODUITS
+### 6-A: Écrire une fiche technique dans TI_PRODUITS
 
 ```sql
 DECLARE
@@ -959,14 +959,14 @@ BEGIN
   DBMS_LOB.WRITEAPPEND(v_clob, LENGTH(v_lig), v_lig);
 
   COMMIT;
-  DBMS_OUTPUT.PUT_LINE('Fiche enregistrée — taille : ' || DBMS_LOB.GETLENGTH(v_clob) || ' car.');
+  DBMS_OUTPUT.PUT_LINE('Fiche enregistrée: taille : ' || DBMS_LOB.GETLENGTH(v_clob) || ' car.');
 END;
 /
 ```
 
 ---
 
-### 6-B — Lire la fiche technique par chunks
+### 6-B: Lire la fiche technique par chunks
 
 ```sql
 DECLARE
@@ -986,7 +986,7 @@ BEGIN
     RETURN;
   END IF;
 
-  DBMS_OUTPUT.PUT_LINE('Produit : ' || v_ref || ' — ' || v_len || ' car.');
+  DBMS_OUTPUT.PUT_LINE('Produit : ' || v_ref || ': ' || v_len || ' car.');
   DBMS_OUTPUT.PUT_LINE('');
 
   -- Lecture par morceaux de 200 caractères
@@ -1002,7 +1002,7 @@ END;
 
 ---
 
-### 6-C — CLOB temporaire — rapport de commandes
+### 6-C: CLOB temporaire: rapport de commandes
 
 ```sql
 DECLARE
@@ -1040,7 +1040,7 @@ BEGIN
 
   -- Pied de page
   v_lig := CHR(10) || RPAD('-',70,'-') || CHR(10) ||
-           v_nb || ' commande(s) — CA TTC : ' || TO_CHAR(v_total,'999G999G999D00') || ' EUR' || CHR(10);
+           v_nb || ' commande(s): CA TTC : ' || TO_CHAR(v_total,'999G999G999D00') || ' EUR' || CHR(10);
   DBMS_LOB.WRITEAPPEND(v_rapport, LENGTH(v_lig), v_lig);
 
   -- Affichage
@@ -1067,7 +1067,7 @@ END;
 
 ---
 
-### 6-D — FREETEMPORARY dans EXCEPTION — bonne pratique
+### 6-D: FREETEMPORARY dans EXCEPTION: bonne pratique
 
 ```sql
 -- Version INCORRECTE : fuite mémoire
@@ -1078,7 +1078,7 @@ BEGIN
   DBMS_LOB.FREETEMPORARY(v_clob);  -- jamais atteinte → FUITE
 EXCEPTION
   WHEN OTHERS THEN
-    DBMS_OUTPUT.PUT_LINE('Incorrect — LOB non libéré');
+    DBMS_OUTPUT.PUT_LINE('Incorrect: LOB non libéré');
 END;
 /
 
@@ -1092,7 +1092,7 @@ EXCEPTION
   WHEN OTHERS THEN
     IF DBMS_LOB.ISTEMPORARY(v_clob) = 1 THEN
       DBMS_LOB.FREETEMPORARY(v_clob);
-      DBMS_OUTPUT.PUT_LINE('LOB libéré dans EXCEPTION — correct');
+      DBMS_OUTPUT.PUT_LINE('LOB libéré dans EXCEPTION: correct');
     END IF;
 END;
 /
@@ -1143,7 +1143,7 @@ BEGIN
 
   -- Afficher infos + premières lignes
   v_len := DBMS_LOB.GETLENGTH(v_csv);
-  DBMS_OUTPUT.PUT_LINE('Lignes : ' || v_nb || ' — Taille : ' || v_len || ' car.');
+  DBMS_OUTPUT.PUT_LINE('Lignes : ' || v_nb || ': Taille : ' || v_len || ' car.');
   -- Lire les 300 premiers caractères pour aperçu
   -- ?
 
@@ -1158,13 +1158,13 @@ END;
 
 ---
 
-## CONCEPT 7 — Curseurs explicites et REF CURSOR
+## CONCEPT 7: Curseurs explicites et REF CURSOR
 
 > Cycle de vie DECLARE/OPEN/FETCH/CLOSE, 4 attributs, REF CURSOR pour l'interopérabilité.
 
 ---
 
-### 7-A — Cycle de vie complet sur TI_EMPLOYES
+### 7-A: Cycle de vie complet sur TI_EMPLOYES
 
 ```sql
 DECLARE
@@ -1205,7 +1205,7 @@ END;
 
 ---
 
-### 7-B — Les quatre attributs : observer leur évolution
+### 7-B: Les quatre attributs : observer leur évolution
 
 ```sql
 DECLARE
@@ -1237,7 +1237,7 @@ END;
 
 ---
 
-### 7-C — Curseur paramétré — employés par département
+### 7-C: Curseur paramétré: employés par département
 
 ```sql
 DECLARE
@@ -1271,7 +1271,7 @@ END;
 
 ---
 
-### 7-D — REF CURSOR — commandes d'un client
+### 7-D: REF CURSOR: commandes d'un client
 
 ```sql
 CREATE OR REPLACE PROCEDURE get_commandes_client (
@@ -1327,7 +1327,7 @@ END;
 
 ---
 
-### 7-E — Curseurs implicites après DML
+### 7-E: Curseurs implicites après DML
 
 ```sql
 DECLARE
@@ -1416,14 +1416,14 @@ END;
 
 ---
 
-## CONCEPT 8 — BULK COLLECT et FORALL
+## CONCEPT 8: BULK COLLECT et FORALL
 
 > BULK COLLECT réduit les context switches. Toujours utiliser LIMIT.
 > FORALL envoie le DML en un seul appel. SAVE EXCEPTIONS en production.
 
 ---
 
-### 8-A — Visualiser le context switch
+### 8-A: Visualiser le context switch
 
 ```sql
 DECLARE
@@ -1462,7 +1462,7 @@ END;
 
 ---
 
-### 8-B — BULK COLLECT + FORALL — historique des salaires
+### 8-B: BULK COLLECT + FORALL: historique des salaires
 
 ```sql
 DECLARE
@@ -1512,7 +1512,7 @@ END;
 
 ---
 
-### 8-C — FORALL INDICES OF — après suppression d'éléments
+### 8-C: FORALL INDICES OF: après suppression d'éléments
 
 ```sql
 DECLARE
@@ -1542,7 +1542,7 @@ END;
 
 ---
 
-### 8-D — FORALL SAVE EXCEPTIONS — import de commandes
+### 8-D: FORALL SAVE EXCEPTIONS: import de commandes
 
 ```sql
 DECLARE
@@ -1600,7 +1600,7 @@ ALTER TABLE ti_produits_archive ADD archive_le DATE;
 ```
 
 Écrivez un bloc qui :
-1. Charge les produits actifs avec `BULK COLLECT` (tous, sans LIMIT — table petite)
+1. Charge les produits actifs avec `BULK COLLECT` (tous, sans LIMIT: table petite)
 2. Insère dans `TI_PRODUITS_ARCHIVE` avec `FORALL SAVE EXCEPTIONS`
 3. Affiche réussites et erreurs éventuelles
 4. COMMIT si succès, ROLLBACK en cas d'erreur totale
@@ -1640,13 +1640,13 @@ DROP TABLE ti_produits_archive;
 
 ---
 
-## CONCEPT 9 — Gestion des erreurs
+## CONCEPT 9: Gestion des erreurs
 
 > Exceptions prédéfinies, PRAGMA EXCEPTION_INIT, RAISE_APPLICATION_ERROR, pkg_errors.
 
 ---
 
-### 9-A — Exceptions prédéfinies sur TechInfo
+### 9-A: Exceptions prédéfinies sur TechInfo
 
 ```sql
 DECLARE
@@ -1657,7 +1657,7 @@ BEGIN
     SELECT * INTO v_client FROM ti_clients WHERE client_id = 99999;
   EXCEPTION
     WHEN NO_DATA_FOUND THEN
-      DBMS_OUTPUT.PUT_LINE('Client 99999 introuvable — traitement ignoré');
+      DBMS_OUTPUT.PUT_LINE('Client 99999 introuvable: traitement ignoré');
   END;
 
   -- TOO_MANY_ROWS
@@ -1668,7 +1668,7 @@ BEGIN
     END;
   EXCEPTION
     WHEN TOO_MANY_ROWS THEN
-      DBMS_OUTPUT.PUT_LINE('Plusieurs clients actifs — utiliser un curseur');
+      DBMS_OUTPUT.PUT_LINE('Plusieurs clients actifs: utiliser un curseur');
   END;
 
   -- DUP_VAL_ON_INDEX
@@ -1676,7 +1676,7 @@ BEGIN
     INSERT INTO ti_clients (client_id, code_client, nom) VALUES (1,'DUP','Test');
   EXCEPTION
     WHEN DUP_VAL_ON_INDEX THEN
-      DBMS_OUTPUT.PUT_LINE('client_id=1 existe déjà — DUP_VAL_ON_INDEX');
+      DBMS_OUTPUT.PUT_LINE('client_id=1 existe déjà: DUP_VAL_ON_INDEX');
   END;
 
   DBMS_OUTPUT.PUT_LINE('Tous les cas traités.');
@@ -1686,7 +1686,7 @@ END;
 
 ---
 
-### 9-B — WHEN OTHERS : bon usage vs mauvais
+### 9-B: WHEN OTHERS : bon usage vs mauvais
 
 ```sql
 -- MAUVAIS : WHEN OTHERS THEN NULL (interdit en production)
@@ -1704,9 +1704,9 @@ BEGIN
   SELECT * INTO v_client FROM ti_clients WHERE client_id = 99999;
 EXCEPTION
   WHEN NO_DATA_FOUND THEN
-    DBMS_OUTPUT.PUT_LINE('Client absent — valeur par défaut');
+    DBMS_OUTPUT.PUT_LINE('Client absent: valeur par défaut');
   WHEN OTHERS THEN
-    DBMS_OUTPUT.PUT_LINE('Inattendu : ' || SQLCODE || ' — ' || SQLERRM);
+    DBMS_OUTPUT.PUT_LINE('Inattendu : ' || SQLCODE || ': ' || SQLERRM);
     RAISE;   -- TOUJOURS
 END;
 /
@@ -1716,7 +1716,7 @@ END;
 
 ---
 
-### 9-C — PRAGMA EXCEPTION_INIT — nommer les erreurs FK du schéma
+### 9-C: PRAGMA EXCEPTION_INIT: nommer les erreurs FK du schéma
 
 ```sql
 DECLARE
@@ -1743,7 +1743,7 @@ BEGIN
     VALUES (seq_emp.NEXTVAL,'EMP-9999','TEST','Test',-500, 10);
   EXCEPTION
     WHEN e_ck_violation THEN
-      DBMS_OUTPUT.PUT_LINE('Salaire négatif interdit — CHECK salaire > 0');
+      DBMS_OUTPUT.PUT_LINE('Salaire négatif interdit: CHECK salaire > 0');
   END;
 END;
 /
@@ -1751,7 +1751,7 @@ END;
 
 ---
 
-### 9-D — RAISE_APPLICATION_ERROR et package pkg_errors
+### 9-D: RAISE_APPLICATION_ERROR et package pkg_errors
 
 ```sql
 -- Package centralisé TechInfo
@@ -1784,7 +1784,7 @@ BEGIN
 
   IF v_actif = 'N' THEN
     RAISE_APPLICATION_ERROR(pkg_errors.C_CLIENT_INACTIF,
-      'Client ' || p_client_id || ' inactif — commande refusée');
+      'Client ' || p_client_id || ' inactif: commande refusée');
   END IF;
 
   SELECT COUNT(*) INTO v_nb FROM ti_employes WHERE emp_id = p_emp_id AND actif = 'O';
@@ -1799,7 +1799,7 @@ BEGIN
   ROLLBACK;
 EXCEPTION
   WHEN OTHERS THEN
-    DBMS_OUTPUT.PUT_LINE('Erreur : ' || SQLCODE || ' — ' || SQLERRM);
+    DBMS_OUTPUT.PUT_LINE('Erreur : ' || SQLCODE || ': ' || SQLERRM);
     RAISE;
 END;
 /
@@ -1818,7 +1818,7 @@ Créez `valider_produit(p_prod_id NUMBER, p_qte NUMBER)` qui :
 1. Vérifie que le produit existe et est actif (sinon `pkg_errors.C_EMP_INTROUVABLE`)
 2. Vérifie que `p_qte > 0` (sinon `pkg_errors.C_SAL_INVALIDE`)
 3. Vérifie que `p_qte <= stock` (sinon `pkg_errors.C_STOCK_INSUFFISANT`)
-4. Affiche : `"Commande validée : REF-001 x 5 — stock restant : 10"`
+4. Affiche : `"Commande validée : REF-001 x 5: stock restant : 10"`
 5. Dans `WHEN OTHERS` : affiche le code + message, puis `RAISE`
 
 Testez avec : produit 1 qté 3 (OK), produit 1 qté 999 (insuffisant), produit 99999 qté 1 (inexistant).
@@ -1843,7 +1843,7 @@ BEGIN
 
   -- Succès
   DBMS_OUTPUT.PUT_LINE('Validé : ' || v_ref || ' x ' || p_qte ||
-    ' — stock restant : ' || (v_stock - p_qte));
+    ': stock restant : ' || (v_stock - p_qte));
 EXCEPTION
   WHEN OTHERS THEN
     -- ?
@@ -1857,7 +1857,7 @@ BEGIN valider_produit(99999, 1); END; /
 
 ---
 
-## EXERCICE INTÉGRÉ — Rapport de performance TechInfo
+## EXERCICE INTÉGRÉ: Rapport de performance TechInfo
 
 > **Durée estimée : 35 à 45 minutes**
 > Combine les 9 concepts du Jour 1 avec le schéma TechInfo Solutions.
@@ -1865,28 +1865,28 @@ BEGIN valider_produit(99999, 1); END; /
 ### Cahier des charges
 
 ```
-Étape 1 — Structures
+Étape 1: Structures
   TYPE RECORD t_perf_dept :
     dept_code, dept_nom, nb_emp PLS_INTEGER,
     sal_total NUMBER(12,2), nb_cmds PLS_INTEGER, ca_total NUMBER(12,2)
   TYPE TABLE t_perfs IS TABLE OF t_perf_dept
   Associative Array t_dept_cache (dept_id → nom)
 
-Étape 2 — Chargement
+Étape 2: Chargement
   Curseur sur TI_DEPARTEMENTS actifs
   Pour chaque département :
     BULK COLLECT des salaires depuis TI_EMPLOYES
     Agrégat commandes depuis TI_COMMANDES + TI_EMPLOYES
 
-Étape 3 — Construction du CLOB
-  En-tête : "RAPPORT PERFORMANCE — DD/MM/YYYY"
+Étape 3: Construction du CLOB
+  En-tête : "RAPPORT PERFORMANCE: DD/MM/YYYY"
   Ligne par département : CODE | NOM | EMP | MASSE SAL. | CMDS | CA TTC
   Pied de page : totaux globaux + durée de traitement (SYSTIMESTAMP)
 
-Étape 4 — Erreurs
+Étape 4: Erreurs
   WHEN OTHERS : FREETEMPORARY + fermeture curseur + RAISE
 
-Étape 5 — Affichage
+Étape 5: Affichage
   Lire le CLOB par chunks de 250 car.
 ```
 
@@ -2013,7 +2013,7 @@ EXCEPTION
   WHEN OTHERS THEN
     IF DBMS_LOB.ISTEMPORARY(v_rapport) = 1 THEN DBMS_LOB.FREETEMPORARY(v_rapport); END IF;
     IF c_depts%ISOPEN THEN CLOSE c_depts; END IF;
-    DBMS_OUTPUT.PUT_LINE('Erreur : ' || SQLCODE || ' — ' || SQLERRM);
+    DBMS_OUTPUT.PUT_LINE('Erreur : ' || SQLCODE || ': ' || SQLERRM);
     RAISE;
 END;
 /
@@ -2021,7 +2021,7 @@ END;
 
 ---
 
-## Récapitulatif — Ce que vous savez faire après le Jour 1
+## Récapitulatif: Ce que vous savez faire après le Jour 1
 
 | Concept | Compétence acquise |
 |---|---|
@@ -2038,10 +2038,10 @@ END;
 
 ---
 
-## Bonnes pratiques — Mémo
+## Bonnes pratiques: Mémo
 
 **Toujours :**
-- `colonne%TYPE` — jamais de types en dur
+- `colonne%TYPE`: jamais de types en dur
 - `LIMIT` avec chaque `BULK COLLECT`
 - `CLOSE curseur` dans `EXCEPTION WHEN OTHERS`
 - `FREETEMPORARY` dans `EXCEPTION` aussi
@@ -2050,9 +2050,9 @@ END;
 **Jamais :**
 - `WHEN OTHERS THEN NULL`
 - `BULK COLLECT` sans `LIMIT` sur une grande table
-- Codes `-20xxx` en dur — utiliser `pkg_errors`
+- Codes `-20xxx` en dur: utiliser `pkg_errors`
 
 ---
 
-*Fin du support Jour 1 — ORA-PLAV — TechInfo Solutions S.A.S*
+*Fin du support Jour 1: ORA-PLAV: TechInfo Solutions S.A.S*
 *Jour 2 : Transactions autonomes · TI_JOURNAL_AUDIT · Triggers composés · Packages Oracle intégrés · SQL dynamique*
